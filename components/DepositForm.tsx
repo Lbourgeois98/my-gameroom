@@ -14,7 +14,7 @@ export default function DepositForm() {
     setPaymentUrl('');
     setQrCode('');
 
-    const res = await fetch('/api/create-invoice', {
+    const res = await fetch('/api', {   // 👈 changed here
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ email, amount }),
@@ -28,6 +28,7 @@ export default function DepositForm() {
       setQrCode(data.qrCode);
     } else {
       alert('Failed to create payment.');
+      console.error(data);
     }
   };
 
@@ -69,7 +70,7 @@ export default function DepositForm() {
 
       {paymentUrl && (
         <p className="mt-4">
-          Or open directly:{" "}
+          Or open directly:{' '}
           <a
             href={paymentUrl}
             target="_blank"
